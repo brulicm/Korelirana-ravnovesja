@@ -1,0 +1,68 @@
+\documentclass{article}
+
+\usepackage[slovene]{babel}
+\usepackage{nicematrix}
+\usepackage{amsfonts}
+
+\title{Korelirana ravnovesja \\ Kratko poročilo}
+
+\author{Melisa Brulić}
+\date{\today}
+
+
+\newtheorem{definition}{Definicija}
+
+\begin{document}
+\maketitle
+
+    
+\section*{Uvod}
+Oglejmo si primer igre Strahopetec (angl. Game of Chicken). Dva voznika iz različnih ulic vozita proti križišču. Vsak ima dve možnosti - lahko se ustavi ali vozi. Če bo prvi vozil naprej, je bolje za drugega, da se ustavi. Če pa se bo prvi prestrašil in ustavil, je za drugega bolje, da vozi naprej. Nobeden ne želi biti strahopetec, vendar če se nobeden ne ustavi, je izzid trčenje. To pripelje do zanimive situacije, kjer si oba želita voziti, a samo v primeru, ko se drugi ustavi. Igro lahko predstavimo v matrični obliki:
+
+\begin{NiceTabular}{cccc}[cell-space-limits=3pt]
+    &     & \Block{1-2}{Voznik 2} \\
+    &     & Ustavi     & Vozi \\
+\Block{2-1}{Voznik 1} 
+    & Ustavi & \Block[hvlines]{2-2}{}
+          4,4 & 1,5 \\
+    & Vozi & 5,1 & 0,0 
+\end{NiceTabular}
+
+Ta igra ima tri Nasheva ravnovesja. Čisti Nashevi ravnovesji sta (Ustavi, Vozi) in (Vozi, Ustavi). Igra ima še eno mešano Nashevo ravnovesje, kjer se oba voznika ustavita z verjetnostjo $\frac{2}{3}$.
+
+Denimo, da je na križišču postavljen semafor, ki vozniku pove, ali naj se ustavi ali naj vozi naprej (ne pove pa, kaj bo storil drug voznik). Denimo, da semafor naključno pokaže (Ustavi, Vozi) ali (Vozi, Ustavi) z verjetnostjo $\frac{1}{2}$.
+
+Če semafor vozniku svetuje, da vozi, bo to storil, saj sklepa, da bo drugi upošteval nasvet in se ustavil. Tako bi prvi voznik dobil 5 (največje možno izplačilo). Če semafor vozniku svetuje, da se ustavi, pa sklepa, da bo drugi vozil, zato se raje ustavi in tako dobi 1. Če ne bi upošteval nasveta in bi vseeno vozil, pa bi dobil 0. To se mu torej ne splača. Ker se nobenemu vozniku ne splača odstopiti od izbrane strategije, je to ravnovesje, ki ga imenujemo \emph{korelirano ravnovesje}. 
+
+Igra ima še eno korelirano ravnovesje, kjer semafor pokaže (Ustavi, Vozi), (Vozi, Ustavi) in (Ustavi, Ustavi), vsakega z verjetnostjo $\frac{1}{3}$. Pričakovana koristnost je v tem primeru za vsakega igralca najvišja možna.
+
+\section*{Korelirano ravnovesje}
+\begin{definition}
+    \emph{Končna strateška igra} je $\langle N, S, u \rangle$, kjer:
+    \begin{itemize}
+        \item $N = \{ 1, \dots, n \}$ je \emph{množica igralcev}
+        \item za vsak $p \in N$ je $S_p$, $|S_p|\geq 2$, končna množica \emph{strategij} oz. \emph{potez}
+        \item \emph{izid igre} oz. \emph{profil strategij} je vektor potez vseh igralcev $s = (s_1, \dots, s_n)$; $\forall p \in N: s_p \in S_p$
+        \item \emph{množica vseh možnih izidov} oz. \emph{profilov strategij} je $S = S_1 \times \dots \times S_n$ 
+        \item \emph{funkcija koristnosti} je funkcija $u_p: S \to \mathbb{R}$, kjer za izid $s \in S$ vrednost $u_p(s)$ predstavlja preference igralca $p$: 
+        $$ \text{$p$ ima raje izid $s$ kot $\tilde{s}$} \iff u_p(s) \geq u_p(\tilde{s}). $$
+    \end{itemize}
+\end{definition}
+Za igralca $p\in N$ in izid $s \in S$ bomo namesto $u_p(s)$ pisali $u_s^p$. S $S_{-p}$ označimo poteze nasprotnikov igralca $p$, tj. $\prod\limits_{q \neq p} S_q$.
+
+\begin{definition}
+    \emph{Korelirano ravnovesje} je slučajna porazdelitev $x$ na množici vseh možnih izidov $S$, da za vsakega igralca $p\in N$ in vse poteze $i,j\in S_p$ velja naslednje:
+    Pod pogojem, da je pri izbranemu izidu iz $x$ $p$-ta komponenta enaka $i$, je pričakovana koristnost za igralca $p$ pri igranju strategije $i$ vsaj toliko kot pri igranju $j$:
+    $$ \sum_{s\in S_{-p}} [u_{is}^p - u_{js}^p] x_{is} \geq 0, $$
+kjer $is$ označuje izid, ki ga dobimo tako, da izidu $s \in S_{-p}$ dodamo še komponento $i\in S_p$.
+\end{definition}
+
+Intuitivno si lahko predstavljamo, da nek posrednik izbere izid $s$ iz porazdelitve $x$ in vsakemu igralcu posebej pove, katero potezo naj odigra. Če posrednik igralcu $p$ svetuje, da odigra potezo $i$ in ta predvideva, da bodo vsi ostali igralci upoštevali posrednikov nasvet, igralec $p$ ne bo želel igrati nobene druge poteze, saj bi s tem dobil manj oz. kvečjemu toliko kot z igranjem poteze $i$. Vsako (mešano) Nashevo ravnovesje je tudi korelirano ravnovesje, 
+
+\section*{Načrt dela}
+V projektu nameravam obravnavati končne igre z dvema igralcema, kjer je koristnost vsakega igralca naključno celo število med 0 in 10. Za tako igro bom izračunala Nasheva ravnovesja in korelirana ravnovesja. Slednja se da predstaviti z linearnim programom. 
+
+Za vsako ravnovesje bom izračunala tudi, koliko je pričakovana koristnost in primerjala, koliko koreliranih ravnovesij je tudi Nashevih. 
+
+
+\end{document}
