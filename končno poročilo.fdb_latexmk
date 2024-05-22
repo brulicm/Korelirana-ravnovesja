@@ -1,7 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1716410931 "/Users/melisa/Desktop/Magisterij/MATZRAČ/matzra-/poročila/končno poročilo.tex" "/Users/melisa/Desktop/Magisterij/MATZRAČ/matzra-/poročila/končno poročilo.pdf" "končno poročilo" 1716410932
-  "/Users/melisa/Desktop/Magisterij/MATZRAČ/matzra-/poročila/končno poročilo.aux" 1716410932 16239 ba60caf7b165d28adc11cfa5b56421e6 "pdflatex"
-  "/Users/melisa/Desktop/Magisterij/MATZRAČ/matzra-/poročila/končno poročilo.tex" 1716410742 14156 17d770460b1131424a7ffe338c16b9c2 ""
+["pdflatex"] 1716411853 "/Users/melisa/Desktop/Korelirana ravnovesja/Korelirana-ravnovesja/končno poročilo.tex" "končno poročilo.pdf" "končno poročilo" 1716411854
+  "/Users/melisa/Desktop/Korelirana ravnovesja/Korelirana-ravnovesja/končno poročilo.tex" 1716411761 14156 17d770460b1131424a7ffe338c16b9c2 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -139,7 +138,9 @@
   "/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1647878959 4410336 7d30a02e9fa9a16d7d1f8d037ba69641 ""
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1666980547 2826444 827b2695ea4a999a4cce53835827e932 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
+  "končno poročilo.aux" 1716411854 16239 ba60caf7b165d28adc11cfa5b56421e6 "pdflatex"
+  "končno poročilo.tex" 1716411761 14156 17d770460b1131424a7ffe338c16b9c2 ""
   (generated)
-  "/Users/melisa/Desktop/Magisterij/MATZRAČ/matzra-/poročila/končno poročilo.aux"
-  "/Users/melisa/Desktop/Magisterij/MATZRAČ/matzra-/poročila/končno poročilo.log"
-  "/Users/melisa/Desktop/Magisterij/MATZRAČ/matzra-/poročila/končno poročilo.pdf"
+  "končno poročilo.aux"
+  "končno poročilo.log"
+  "končno poročilo.pdf"

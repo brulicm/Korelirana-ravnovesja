@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.28)  22 MAY 2024 22:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.28)  22 MAY 2024 23:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/melisa/Desktop/Magisterij/MATZRAČ/matzra-/poročila/končno poročilo.tex"
-(/Users/melisa/Desktop/Magisterij/MATZRAČ/matzra-/poročila/končno poročilo.tex
+**"/Users/melisa/Desktop/Korelirana ravnovesja/Korelirana-ravnovesja/končno poročilo.tex"
+(/Users/melisa/Desktop/Korelirana ravnovesja/Korelirana-ravnovesja/končno poročilo.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-02-24> (/usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
@@ -360,7 +360,7 @@ Package: fancyvrb 2021/12/21 4.1b verbatim text (tvz,hv)
 \c@definition=\count314
 \c@lemma=\count315
 \c@example=\count316
- (/Users/melisa/Desktop/Magisterij/MATZRAČ/matzra-/poročila/končno poročilo.aux)
+ (./končno poročilo.aux)
 \openout1 = `"končno poročilo.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
@@ -448,17 +448,17 @@ Overfull \hbox (11.00113pt too wide) in paragraph at lines 317--325
 [][][][][][][][][][][][][] 
  []
 
-[6] [7] (/Users/melisa/Desktop/Magisterij/MATZRAČ/matzra-/poročila/končno poročilo.aux) ) 
+[6] [7] (./končno poročilo.aux) ) 
 Here is how much of TeX's memory you used:
  15951 strings out of 478268
- 342829 string characters out of 5846346
+ 342493 string characters out of 5846346
  667771 words of memory out of 5000000
  33952 multiletter control sequences out of 15000+600000
  479909 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 85i,14n,90p,756b,598s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 85i,14n,90p,762b,598s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on "/Users/melisa/Desktop/Magisterij/MATZRAČ/matzra-/poročila/končno poročilo.pdf" (7 pages, 230496 bytes).
+Output written on "končno poročilo.pdf" (7 pages, 230496 bytes).
 PDF statistics:
  132 PDF objects out of 1000 (max. 8388607)
  82 compressed objects within 1 object stream
