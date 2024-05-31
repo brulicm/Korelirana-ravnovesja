@@ -94,64 +94,13 @@ class Igra:
         rezultatA = linprog(c = cA, A_ub = U, b_ub = b, A_eq = A_eq, b_eq = b_eq)
         rezultatB = linprog(c = cB, A_ub = U, b_ub = b, A_eq = A_eq, b_eq = b_eq)
         rezultatC = linprog(c = cC, A_ub = U, b_ub = b, A_eq = A_eq, b_eq = b_eq)
-        print("_____________________")
-        print("Korelirano ravnovesje pri katerem je maksimizirano zadovoljstvo igralca 1:")
-        print(rezultatA.x)
-        print("Koristnost igralca 1:")
-        print(-rezultatA.fun)
-        print("Koristnost igralca 2:")
-        print(np.matmul(B.reshape(-1), rezultatA.x))
-        print("Skupno zadovoljstvo:")
-        print(np.matmul(C.reshape(-1), rezultatA.x))
-        print("_____________________")
-
-        print("Korelirano ravnovesje pri katerem je maksimizirano zadovoljstvo igralca 2:")
-        print(rezultatB.x)
-        print("Koristnost igralca 1:")
-        print(np.matmul(A.reshape(-1), rezultatB.x))
-        print("Koristnost igralca 2:")
-        print(-rezultatB.fun)
-        print("Skupno zadovoljstvo:")
-        print(np.matmul(C.reshape(-1), rezultatB.x))
-
-        print("_____________________")
-        print("Korelirano ravnovesje pri katerem je maksimizirano skupno zadovoljstvo:")
-        print(rezultatC.x)
-        print("Koristnost igralca 1:")
-        print(np.matmul(A.reshape(-1), rezultatC.x))
-        print("Koristnost igralca 2:")
-        print(np.matmul(B.reshape(-1), rezultatC.x))
-
-        print("Skupno zadovoljstvo")
-        print(-rezultatC.fun)
         return rezultatA.x, rezultatB.x, rezultatC.x
     
 
-# stragopetec
+igra2 = Igra([[2,0,3],[0,1, 2], [1,2,3]], [[2,5,7],[0,0, 1], [4,5,6]])
+
 igra = Igra([[2, 0],[0, 1]], [[1,0], [0, 2]])
-nashevo_ravnovesje = igra.izračunaj_nashevo_ravnovesje()
+#print(igra.U())
+print(igra.reši_lp_max())
+print(igra.izračunaj_nashevo_ravnovesje())
 
-print("Nashevo ravnovesje:")
-print(nashevo_ravnovesje)
-
-korelirano1 = igra.reši_lp_max()
-
-# naključna 2x2 
-igra2 = Igra(n=2)
-print(igra2.igra)
-nashevo_ravnovesje2 = igra2.izračunaj_nashevo_ravnovesje()
-
-print("Nashevo ravnovesje:")
-print(nashevo_ravnovesje2)
-
-korelirano3 = igra2.reši_lp_max()
-
-# naključna 3x3
-#igra3 = Igra(n = 3)
-#print(igra3.igra)
-#nashevo_ravnovesje3 = igra3.izračunaj_nashevo_ravnovesje()
-
-#print("Nashevo ravnovesje:")
-#print(nashevo_ravnovesje3)
-
-#korelirano3 = igra3.reši_lp_max()
