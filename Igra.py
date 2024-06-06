@@ -3,43 +3,32 @@ import nashpy as nash
 from scipy.optimize import linprog
 
 class Igra:
-    def __init__(self, koristnosti_igralec1=None, koristnosti_igralec2=None, n=None, m=None): 
+    def __init__(self, izplacilna1=None, izplacilna2=None, n=None, m=None): 
         # Konstruktor razreda za ustvarjanje n*m bimatrične igre
 
-        # koristnosti_igralec1: Matrika koristnosti A za igralca 1. Če ni podana, se ustvari naključna n*m matrika.
-        # koristnosti_igralec2: Matrika koristnosti B za igralca 2. Če ni podana, se ustvari naključna n*m matrika.
-        # n: število potez, ki jih ima na voljo igralec 1.  Če ni podano, je to naključno celo število med 2 in 5. Če je podan samo n, gre za n*n igro.
-        # m: število potez, ki jih ima na voljo igralec 2. Če ni podano, je to naključno celo število med 2 in 5.
-
-        # predpostavimo, da sta matriki A in B ustreznih velikosti in je igra dobro definirana - tega ne preverjamo posebej.
-        # predpostavimo, da:
-            # ali sta podani obe matriki
-            # ali sta podana n in m
-            # ali ni podano nič
-
-        if koristnosti_igralec1 is None and koristnosti_igralec2 is None:
+        if izplacilna1 is None and izplacilna2 is None:
 
             if n is None or m is None:
             # nimamo parametrov, n in m sta naključni števili med 2 in 5
-                self.n = np.random.randint(2, 6) #popravi do 6
-                self.m = np.random.randint(2, 6) #popravi do 6
+                self.n = np.random.randint(2, 6) 
+                self.m = np.random.randint(2, 6)
             else:
                 self.n = n
                 self.m = m
 
             # izplačilni matriki sta naključni matriki velikosti n*m z elementi med 0 in 10
-            self.koristnosti_igralec1 = np.random.randint(0, 11, size=(self.n, self.m))
-            self.koristnosti_igralec2 = np.random.randint(0, 11, size=(self.n, self.m))
+            self.izplacilna1 = np.random.randint(0, 11, size=(self.n, self.m))
+            self.izplacilna2 = np.random.randint(0, 11, size=(self.n, self.m))
 
         else:
-            self.n, self.m = len(koristnosti_igralec1), len(koristnosti_igralec1[0])
-            self.koristnosti_igralec1 = np.array(koristnosti_igralec1)
-            self.koristnosti_igralec2 = np.array(koristnosti_igralec2)
+            self.n, self.m = len(izplacilna1), len(izplacilna1[0])
+            self.izplacilna1 = np.array(izplacilna1)
+            self.izplacilna2 = np.array(izplacilna2)
       
-        self.igra = nash.Game(self.koristnosti_igralec1, self.koristnosti_igralec2)
+        self.igra = nash.Game(self.izplacilna1, self.izplacilna2)
 
     def izračunaj_nashevo_ravnovesje(self):
-        # izračunamo vsa Nasheva ravnovesja dane igre s pomočjo vgrajenega algoritma Support enumeration
+        # izračunamo vsa Nasheva ravnovesja dane igre s pomočjo vgrajenega algoritma Vertex enumeration
         nasheva_ravnovesja = list(self.igra.vertex_enumeration())
 
         seznam_NR = []
@@ -55,13 +44,8 @@ class Igra:
     def U(self):
         # konstruiramo matriko U, s katero so opisani pogoji za korelirano ravnovesje
 
-        # število možnih stanj: nm
-        # število neenakosti za igralca 1: n(n-1)
-        # število neenakosti za igralca 2: m(m-1)
-        # U je matrika velikosti (n(n-1) + m(m-1)) * nm
-
-        A = self.koristnosti_igralec1
-        B = self.koristnosti_igralec2
+        A = self.izplacilna1
+        B = self.izplacilna2
         n, m = self.n, self.m
 
         U = np.zeros((n*(n-1) + m*(m-1),n*m))
@@ -85,29 +69,13 @@ class Igra:
  
     def izračunaj_korelirana_ravnovesja(self):
         # z reševanjem treh linearnih programov izračuna 3 korelirana ravnovesja:
-            # korelirano ravnovesje, ki maksimizira izplačilo igralca 1
-            # korelirano ravnovesje, ki maksimizira izplačilo igralca 2
-            # korelirano ravnovesje, ki maksimizira skupno izplačilo
-
-        # pri tem rešimo linearen program:
-            # max c x (tu je c ustrezno izbrana vrstica)
-            # pri pogojih:
-            # Ux >= 0
-            # 1x = 1
-            # x >= 0
-
-        # za reševanje LP v Pythonu, moramo LP prevesti v naslednjo obliko:
-            # min -c x
-            # pri pogojih:
-            # -Ux <= 0
-            # 1x = 1
-            # x >= 0
+            # KR, ki maksimizira izplačilo igralca 1, izplačilo igralca 2, skupno izplačilo
 
         U = self.U() # konstruiramo matriko U iz definicije
         U_minus = -1*U # preoblikujemo U za LP
 
-        A = self.koristnosti_igralec1
-        B = self.koristnosti_igralec2
+        A = self.izplacilna1
+        B = self.izplacilna2
 
         n = self.n
         m = self.m
@@ -143,9 +111,9 @@ class Igra:
         return rezultatA.x, rezultatB.x, rezultatC.x
     
     def izračunaj_koristnost(self, x, igralec=None):
-        # če ne podamo igralca izračuna skupno zadovoljstvo, sicer pa izračuna koristnost danega igralca
-        A = self.koristnosti_igralec1
-        B = self.koristnosti_igralec2
+        # če ne podamo igralca izračuna skupno koristnost, sicer pa izračuna koristnost danega igralca
+        A = self.izplacilna1
+        B = self.izplacilna2
         C = A + B
 
         if igralec == 1:

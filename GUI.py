@@ -10,7 +10,6 @@ class GUI:
         self.root.title("Korelirana ravnovesja")
 
         self.glavni_meni()
-        
         self.root.mainloop()
 
     def centriraj_okno(self, sirina, visina):
@@ -24,7 +23,6 @@ class GUI:
 
         # nastavimo novo okno
         self.root.geometry(f"{sirina}x{visina}+{x}+{y}")
-
 
     def glavni_meni(self):
         # prikaže glavni meni
@@ -47,7 +45,7 @@ class GUI:
         left_frame = tk.Frame(self.current_frame)
         left_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=20, pady=10)
 
-        opis1 = ("Obravnavamo Nasheva in korelirana ravnovesja bimatričnih iger. Izračunamo tudi koristnosti igralcev v poiskanih ravnovesjih.")
+        opis1 = ("Program izračuna Nasheva in korelirana ravnovesja bimatričnih iger in koristnosti igralcev v poiskanih ravnovesjih.")
         tk.Label(left_frame, text=opis1, wraplength=300,justify="center", font=("Helvetica", 14)).pack(pady=5)
         opis2 = ("Lahko ustvarite povsem naključno bimatrično igro, lahko določite velikost naključne igre, lahko pa tudi vnesete izplačilni matriki.")
         tk.Label(left_frame, text=opis2, wraplength=300, justify="center", font=("Helvetica", 14)).pack(pady=5) 
@@ -71,8 +69,8 @@ class GUI:
 
         self.igra = Igra(n = n,m = m)
 
-        koristnosti_igralec1 = self.igra.koristnosti_igralec1
-        koristnosti_igralec2 = self.igra.koristnosti_igralec2
+        izplacilna1 = self.igra.izplacilna1
+        izplacilna2 = self.igra.izplacilna2
 
         # velikost okna:
         width = max(self.igra.m * 120 + 40,600)
@@ -87,7 +85,7 @@ class GUI:
 
         for i in range(self.igra.n):
             for j in range(self.igra.m):
-                tk.Label(matrix_frame, text=f"{koristnosti_igralec1[i][j]}, {koristnosti_igralec2[i][j]}", borderwidth=1, relief="solid", width=12, height=5).grid(row=i+1, column=j)
+                tk.Label(matrix_frame, text=f"{izplacilna1[i][j]} , {izplacilna2[i][j]}", borderwidth=1, relief="solid", width=12, height=5).grid(row=i+1, column=j)
 
         # gumb:
         self.izracunaj_ravnovesja_gumb = tk.Button(matrix_frame, text="Izračunaj ravnovesja", command=self.izracunaj_ravnovesja, width=20)
@@ -121,8 +119,9 @@ class GUI:
             confirm_button = tk.Button(self.current_frame, text="Ustvari igro", command=self.preberi_nm)
 
         confirm_button.pack(padx = 45, pady = 20)
+
     def preberi_nm(self):
-        # se sproži ob izbiri n in m v drsnem meniju
+        # se sproži ob izbiri n in m v drsnem meniju - če ustvarimo naključno nxm igro
         n = int(self.n_dropdown.get()) 
         m = int(self.m_dropdown.get())
 
@@ -132,10 +131,10 @@ class GUI:
         self.current_frame = tk.Frame(self.root)
         self.current_frame.pack(fill=tk.BOTH, expand=True)
 
-        self.nakljucna_igra(n,m)
+        self.nakljucna_igra(n,m) 
 
     def vnesi_nm_matrike(self):
-        # za vnos n x m izplačilnih matrik
+        # za vnos n x m izplačilnih matrik - po izbiri nxm
 
         selected_n = int(self.n_dropdown.get())
         selected_m = int(self.m_dropdown.get())
@@ -159,10 +158,10 @@ class GUI:
         # polja za izplačila igralca 1
         frame_entries_1 = tk.Frame(self.current_frame)
         frame_entries_1.pack(padx = 10, pady=10)
-        self.koristnosti_igralec1_entry = [[tk.Entry(frame_entries_1, width=5) for _ in range(selected_m)] for _ in range(selected_n)]
+        self.izplacilna1_entry = [[tk.Entry(frame_entries_1, width=5) for _ in range(selected_m)] for _ in range(selected_n)]
         for i in range(selected_n):
             for j in range(selected_m):
-                self.koristnosti_igralec1_entry[i][j].grid(row=i, column=j, padx=2, pady=2)
+                self.izplacilna1_entry[i][j].grid(row=i, column=j, padx=2, pady=2)
 
         # okvir za igralca 2
         frame_label_2 = tk.Frame(self.current_frame)
@@ -172,10 +171,10 @@ class GUI:
         # polja za izplačila igralca 2
         frame_entries_2 = tk.Frame(self.current_frame)
         frame_entries_2.pack(padx = 10, pady=10)
-        self.koristnosti_igralec2_entry = [[tk.Entry(frame_entries_2, width=5) for _ in range(selected_m)] for _ in range(selected_n)]
+        self.izplacilna2_entry = [[tk.Entry(frame_entries_2, width=5) for _ in range(selected_m)] for _ in range(selected_n)]
         for i in range(selected_n):
             for j in range(selected_m):
-                self.koristnosti_igralec2_entry[i][j].grid(row=i, column=j, padx=2, pady=2)
+                self.izplacilna2_entry[i][j].grid(row=i, column=j, padx=2, pady=2)
 
         # gumb
         confirm_button = tk.Button(self.current_frame, text="Izračunaj ravnovesja", command=self.preberi_matrike, width = 20)
@@ -184,24 +183,24 @@ class GUI:
     def preberi_matrike(self):
         # se sproži ob pritisku na gumb "izačunaj ravnovesje", ko vnesemo izplačilne matrike
 
-        koristnosti_igralec1 = []
-        koristnosti_igralec2 = []
+        izplacilna1 = []
+        izplacilna2 = []
 
-        for i in range(len(self.koristnosti_igralec1_entry)):
-            koristnosti_1_vrstica = []
-            koristnosti_2_vrstica = []
-            for j in range(len(self.koristnosti_igralec1_entry[0])):
-                vnos1 = self.koristnosti_igralec1_entry[i][j].get()
-                vnos2 = self.koristnosti_igralec2_entry[i][j].get()
+        for i in range(len(self.izplacilna1_entry)):
+            izplacila_1_vrstica = []
+            izplacila_2_vrstica = []
+            for j in range(len(self.izplacilna1_entry[0])):
+                vnos1 = self.izplacilna1_entry[i][j].get()
+                vnos2 = self.izplacilna2_entry[i][j].get()
                 if not vnos1 or not vnos2 or not vnos1.isdigit() or not vnos2.isdigit():
                     messagebox.showerror("Napaka", "Vsa polja morajo biti izpolnjena s celimi števili!") 
                     return
-                koristnosti_1_vrstica.append(int(self.koristnosti_igralec1_entry[i][j].get()))
-                koristnosti_2_vrstica.append(int(self.koristnosti_igralec2_entry[i][j].get()))
-            koristnosti_igralec1.append(koristnosti_1_vrstica)
-            koristnosti_igralec2.append(koristnosti_2_vrstica)
+                izplacila_1_vrstica.append(int(self.izplacilna1_entry[i][j].get()))
+                izplacila_2_vrstica.append(int(self.izplacilna2_entry[i][j].get()))
+            izplacilna1.append(izplacila_1_vrstica)
+            izplacilna2.append(izplacila_2_vrstica)
         
-        self.igra = Igra(koristnosti_igralec1, koristnosti_igralec2)
+        self.igra = Igra(izplacilna1, izplacilna2)
         self.izracunaj_ravnovesja()
 
     def izracunaj_ravnovesja(self):
@@ -220,35 +219,36 @@ class GUI:
         # Korelirana ravnovesja, ki niso Nasheva:
         nova_korelirana_ravnovesja = self.igra.nova_ravnovesja()
 
-        # Create a canvas to contain the Nasheva ravnovesja with a scrollbar
+        # Canvas z Nashevimi ravnovesji in scrollbarom
         nasheva_canvas = tk.Canvas(self.current_frame)
         nasheva_canvas.pack(side="left", fill="both", expand=True)
 
-        # Add a scrollbar for the Nasheva ravnovesja canvas
+        # Scrollbar
         nasheva_scrollbar = tk.Scrollbar(self.current_frame, orient="vertical", command=nasheva_canvas.yview)
         nasheva_scrollbar.pack(side="right", fill="y")
 
         nasheva_canvas.configure(yscrollcommand=nasheva_scrollbar.set)
         nasheva_canvas.bind('<Configure>', lambda e: nasheva_canvas.configure(scrollregion=nasheva_canvas.bbox("all")))
 
-        # Create a frame to hold the Nasheva ravnovesja content
+        # Okvir za NR
         nasheva_frame = tk.Frame(nasheva_canvas)
         nasheva_canvas.create_window((0, 0), window=nasheva_frame, anchor="nw")
 
         korelirana_frame = tk.Frame(self.current_frame)
         korelirana_frame.pack(side="left",expand=True, fill = "both")
 
-        # Add title for Nasheva ravnovesja
+        # naslov za NR
         tk.Label(nasheva_frame, text="Nasheva ravnovesja", font=("Helvetica", 16)).grid(row=0, column=0, padx=5, pady=(10,5), columnspan=2)
 
+        # izpis NR
         for i, ravnovesje in enumerate(nasheva_ravnovesja):
             NR = self.igra.zapisi_kot_matriko(ravnovesje)
             
-            # Frame for each equilibrium
+            # okvir za vsako NR
             equilibrium_frame = tk.Frame(nasheva_frame, borderwidth=1, relief="ridge")
             equilibrium_frame.grid(row=i+1, column=0, padx=10, pady=10, sticky="nsew")
             
-            # Left inner frame for the matrix
+            # levi okvir in matrika
             left_inner_frame = tk.Frame(equilibrium_frame, borderwidth=1, relief="solid")
             left_inner_frame.grid(row=0, column=0, padx=5, pady=5)
             
@@ -256,7 +256,7 @@ class GUI:
                 for c in range(self.igra.m):
                     tk.Label(left_inner_frame, text=str(abs(round(NR[r][c], 2))), borderwidth=1, relief="solid", width=5, height=2).grid(row=r, column=c)
             
-            # Right inner frame for the utilities
+            # desni okvir in koristnosti
             right_inner_frame = tk.Frame(equilibrium_frame, relief="solid")
             right_inner_frame.grid(row=0, column=1, padx=5, pady=5)
             
@@ -265,27 +265,30 @@ class GUI:
             utility_sk = self.igra.izračunaj_koristnost(ravnovesje)
             tk.Label(right_inner_frame, text=f"Koristnost igralca 1: {round(utility1,2)}", font=("Helvetica", 12)).pack(pady=2)
             tk.Label(right_inner_frame, text=f"Koristnost igralca 2: {round(utility2,2)}", font=("Helvetica", 12)).pack(pady=2)
-            tk.Label(right_inner_frame, text=f"Skupno zadovoljstvo: {round(utility_sk,2)}", font=("Helvetica", 12)).pack(pady=2)
+            tk.Label(right_inner_frame, text=f"Skupna koristnost: {round(utility_sk,2)}", font=("Helvetica", 12)).pack(pady=2)
 
-        # Configure the scrollbar to work with the canvas
+        # Scrollbar
         nasheva_canvas.bind_all("<MouseWheel>", lambda e: nasheva_canvas.yview_scroll(int(-1*(e.delta/120)), "units"))
 
-        # Add title for Korelirana ravnovesja
+        # naslov za KR
         tk.Label(korelirana_frame, text="Korelirana ravnovesja", font=("Helvetica", 16)).grid(row=0, column=0, padx=5, pady=(10,5), columnspan=2)
 
+        # besedilo če najdemo samo KR ki so NR
         if not nova_korelirana_ravnovesja:
             tk.Label(korelirana_frame, text=f"Najdena so bila samo Nasheva ravnovesja", font=("Helvetica", 12)).grid(row=1, column=0, padx=5, pady=5, columnspan=2)
         else:
+            # besedilo če najdemo kakšno novo KR
             tk.Label(korelirana_frame, text=f"Poleg Nashevih ravnovesij smo našli še:", font=("Helvetica", 12)).grid(row=1, column=0, padx=5, pady=5, columnspan=2)
 
+        # če najdemo nova KR, jih izpišemo
         for i, ravnovesje in enumerate(nova_korelirana_ravnovesja):
             CR = self.igra.zapisi_kot_matriko(ravnovesje)
 
-            # Frame for each equilibrium
+            # ovir za vsako KR
             equilibrium_frame = tk.Frame(korelirana_frame, borderwidth=1, relief="ridge")
             equilibrium_frame.grid(row=i+2, column=0, padx=10, pady=10, sticky="nsew")
             
-            # Left inner frame for the matrix
+            # levi okvir za matriko
             left_inner_frame = tk.Frame(equilibrium_frame, borderwidth=1, relief="solid")
             left_inner_frame.grid(row=0, column=0, padx=5, pady=5)
             
@@ -293,7 +296,7 @@ class GUI:
                 for c in range(self.igra.m):
                     tk.Label(left_inner_frame, text=str(abs(round(CR[r][c], 2))), borderwidth=1, relief="solid", width=5, height=2).grid(row=r, column=c)
             
-            # Right inner frame for the utilities
+            # desni okvir za koristnosti
             right_inner_frame = tk.Frame(equilibrium_frame, relief="solid")
             right_inner_frame.grid(row=0, column=1, padx=5, pady=5)
             
@@ -302,12 +305,13 @@ class GUI:
             utility_sk = self.igra.izračunaj_koristnost(ravnovesje)
             tk.Label(right_inner_frame, text=f"Koristnost igralca 1: {round(utility1,2)}", font=("Helvetica", 12)).pack(pady=2)
             tk.Label(right_inner_frame, text=f"Koristnost igralca 2: {round(utility2,2)}", font=("Helvetica", 12)).pack(pady=2)
-            tk.Label(right_inner_frame, text=f"Skupno zadovoljstvo: {round(utility_sk,2)}", font=("Helvetica", 12)).pack(pady=2)
+            tk.Label(right_inner_frame, text=f"Skupna koristnost: {round(utility_sk,2)}", font=("Helvetica", 12)).pack(pady=2)
 
+        # gumb za več info
         KR_button = tk.Button(korelirana_frame, text="Več informacij", command=self.show_more_KR, width=20)
         KR_button.grid(row = len(nova_korelirana_ravnovesja) + 3, column = 0, columnspan = 2)
 
-        # Add a button to go back to the main menu
+        # gumb za nazaj na začetek
         back_to_menu_button = tk.Button(self.current_frame, text="Nazaj na začetek", command=self.glavni_meni, width=20)
         back_to_menu_button.pack(side="bottom")
 
@@ -324,13 +328,13 @@ class GUI:
    
         korelirana_ravnovesja = self.igra.izračunaj_korelirana_ravnovesja()
 
-        # Title
         tk.Label(self.current_frame, text="Najdena so bila naslednja korelirana ravnovesja:", pady=10).pack()
 
+        # zapišemo vsa ravnovesja ki smo jih našli z reševanjem LP
         for i, ravnovesje in enumerate(korelirana_ravnovesja):
             CR = self.igra.zapisi_kot_matriko(ravnovesje)
 
-            # Frame for each equilibrium
+            # okvir za vsako ravnovesje
             equilibrium_frame = tk.Frame(self.current_frame, borderwidth=1, relief="ridge", pady=10)
             equilibrium_frame.pack(pady=10)
 
@@ -341,15 +345,15 @@ class GUI:
             else:
                 tk.Label(equilibrium_frame, text="Korelirano ravnovesje, ki maksimizira skupno korist:  ", font=("Helvetica", 14)).grid(row=0, column=0, columnspan=2, padx=10, pady=10)
 
-            # Left inner frame for the matrix
+            # levi okvir in matrika
             left_inner_frame = tk.Frame(equilibrium_frame, borderwidth=1, relief="solid")
             left_inner_frame.grid(row=1, column=0, padx=2, pady=2)
 
             for r in range(self.igra.n):
                 for c in range(self.igra.m):
-                    tk.Label(left_inner_frame, text=str(abs(round(CR[r][c], 2))), borderwidth=1, relief="solid", width=6, height=2).grid(row=r, column=c)
+                    tk.Label(left_inner_frame, text=str(abs(round(CR[r][c], 2))), borderwidth=1, relief="solid", width=3, height=1).grid(row=r, column=c)
 
-            # Right inner frame for the utilities
+            # desni okvir in koristnosti
             right_inner_frame = tk.Frame(equilibrium_frame, relief="solid")
             right_inner_frame.grid(row=1, column=1, padx=10, pady=5)
 
@@ -358,17 +362,18 @@ class GUI:
             utility_sk = self.igra.izračunaj_koristnost(ravnovesje)
             tk.Label(right_inner_frame, text=f"Koristnost igralca 1: {round(utility1, 2)}", font=("Helvetica", 12)).pack(pady=2)
             tk.Label(right_inner_frame, text=f"Koristnost igralca 2: {round(utility2, 2)}", font=("Helvetica", 12)).pack(pady=2)
-            tk.Label(right_inner_frame, text=f"Skupno zadovoljstvo: {round(utility_sk, 2)}", font=("Helvetica", 12)).pack(pady=2)
+            tk.Label(right_inner_frame, text=f"Skupna koristnost: {round(utility_sk, 2)}", font=("Helvetica", 12)).pack(pady=2)
 
             if self.igra.ali_je_nashevo(ravnovesje):
                 tk.Label(right_inner_frame, text="To je Nashevo ravnovesje.", font=("Helvetica", 12)).pack(pady=2)
             else:
                 tk.Label(right_inner_frame, text="To ni Nashevo ravnovesje", font=("Helvetica", 12)).pack(pady=2)
 
-        # Add a button to go back to the main menu
+        # gumb za nazaj na začetek
         back_to_menu_button = tk.Button(self.current_frame, text="Nazaj na začetek", command=self.glavni_meni, width=20)
         back_to_menu_button.pack(pady=(10,5))
 
+        # gumb za nazaj
         back = tk.Button(self.current_frame, text="Nazaj", command=self.izracunaj_ravnovesja, width=20)
         back.pack(pady=(5,10))
     
